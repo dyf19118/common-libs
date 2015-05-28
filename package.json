@@ -1,6 +1,6 @@
 {
   "name": "common-libs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "modules extracted from my code base",
   "main": "index.js",
   "scripts": {
