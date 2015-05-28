@@ -19,10 +19,10 @@ module.exports = {
 			i = 0,
 			len = cookies.length;
 		for ( ; i < len ; i++ ) {
-			var cookie = cookies[i],
+			var cookie = cookies[ i ],
 				kv = cookie.split("=");
-			if (kv[0].trim() === name) {
-				return kv[1];
+			if (kv[ 0 ].trim() === name) {
+				return kv[ 1 ];
 			}
 		}
 		return "";
@@ -45,7 +45,7 @@ module.exports = {
 			len = cookies.length,
 			cookieName;
 		for( ; i < len ; i++ ) {
-			cookieName = cookies[i].split("=")[0].trim();
+			cookieName = cookies[ i ].split("=")[ 0 ] .trim();
 			this.remove(cookieName);
 		}
 	}
