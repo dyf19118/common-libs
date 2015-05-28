@@ -1,0 +1,24 @@
+{
+  "name": "common-libs",
+  "version": "1.0.0",
+  "description": "modules extracted from my code base",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dyf19118/common-libs.git"
+  },
+  "keywords": [
+    "module",
+    "common",
+    "lib"
+  ],
+  "author": "Jennis",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dyf19118/common-libs/issues"
+  },
+  "homepage": "https://github.com/dyf19118/common-libs"
+}
