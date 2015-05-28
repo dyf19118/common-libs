@@ -21,7 +21,7 @@ module.exports = {
 		for ( ; i < len ; i++ ) {
 			var cookie = cookies[ i ],
 				kv = cookie.split("=");
-			if (kv[ 0].trim() === name) {
+			if (kv[ 0 ].trim() === name) {
 				return kv[ 1 ];
 			}
 		}
