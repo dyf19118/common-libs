@@ -2,7 +2,8 @@ module.exports = {
 	val: function(name, value) {
 		var map,
 			search = decodeURIComponent(location.search),
-			searchStr = search ? search.slice(1) : null,
+			wellIndex = search.indexOf("#") !== - 1 ? search.indexOf("#") : search.length,
+			searchStr = search ? search.slice(1, wellIndex) : null,
 			pairMap = {},
 			toString = pairMap.toString,
 			searches = [];
