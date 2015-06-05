@@ -1,0 +1,50 @@
+; (function($) {
+	$.fn.extend({
+		alert : function(text, bError, complete) {
+			var $this = $(this);
+			$this.find(".alert-window-info").text(text);
+			bError && $this.addClass("failed");
+			$this.ajustToCenter().fadeIn(250);
+			setTimeout(function() {
+				$this.fadeOut(250, function() {
+					complete && complete();
+					$this.removeClass("failed");
+				});
+			}, 2000);
+		},
+		ajustToCenter : function() {
+			var $this = $(this);
+			return $this.css({
+				"top" : function() {
+					return $("body").scrollTop() + $(window).height() / 2 - $this.height() / 2;
+				},
+				"margin" : "0 auto"
+			});
+		},
+		open : function(title, desc, callback) {
+			var $this = $(this);
+			title && $this.find(".alert-title").text(title);
+			desc && $this.find(".alert-desc").text(desc);
+			$this.show();
+			callback && typeof callback === "function" && callback();
+			return $this;
+		},
+		close: function() {
+			return $(this).hide();
+		},
+		bindTouchHandler : function(selector, handler, cb) {
+			var $this = $(this);
+			if (typeof selector === "object") {
+				for (var s in selector) {
+					var hd = selector[s];
+					$this.find(s).on("touchend", hd);
+				}
+			} else if (typeof selector === "string") {
+				$this.find(selector).on("touchend", handler);
+			} else {
+				return $this;
+			}
+			return $this;
+		}
+	});
+})(jQuery);
