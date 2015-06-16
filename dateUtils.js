@@ -1,3 +1,12 @@
+/*
+ * $Id: dateUtils.js,v 1.00.00 2015/06/16 10:10:32 jennis $
+ * 
+ * this script runs in web browser client
+ *
+ *  Licensed under the MIT license.
+ *    http://opensource.org/licenses/mit-license
+ *
+ */
 Date.prototype.format = function(format, delim) {
 	var delim = delim || format.match(/[^\w]/)[0],
 		splits = format.split(delim),
