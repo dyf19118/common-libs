@@ -11,7 +11,7 @@ module.exports = {
 	defaults: {},
 	cookie: function(name, value, options) {
 		if (value !== undefined) {
-			if (!name.match(/\W/)) {
+			if (name.match(/\W/)) {
 				throw new Error("characters out bounds of [0-9a-zA-Z_] are illegal");
 			}
 			var options = options || this.defaults;
