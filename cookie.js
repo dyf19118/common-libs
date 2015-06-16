@@ -18,7 +18,7 @@ module.exports = {
 			if (typeof options.expires === "number") {
 				var t = new Date();
 				t.setTime(+t + 864e+5 * options.expires);
-				return ( document.cookie = [ name, "=", encodeURIComponent(value),
+				return ( document.cookie = [ name, "=", value,
 					options.expires ? "; expires=" + t.toGMTString() : "", 
 					options.path    ? "; path=" + options.path : "",
 					options.domain  ? "; domain=" + options.domain : "",
@@ -31,10 +31,10 @@ module.exports = {
 			i = 0,
 			len = cookies.length;
 		for ( ; i < len ; i++ ) {
-			var cookie = cookies[ i ],
-				kv = cookie.split("=");
-			if (kv[ 0 ].trim() === name) {
-				return decodeURIComponent(kv[ 1 ]);
+			var cookie = cookies[ i ].trim(),
+				equal = cookie.indexOf("=");
+			if (cookie.slice(0, equal) === name) {
+				return cookie.slice(equal + 1);
 			}
 		}
 		return "";

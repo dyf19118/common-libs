@@ -61,7 +61,7 @@ module.exports = {
             // encoded chars' index, relative to 65 base64 characters
             s1 = b64.indexOf(data.charAt(i++));
             s2 = b64.indexOf(data.charAt(i++));
-            s3 = b64.indexOf(data.charAt(i++));
+            s3 = b64.indexOf(data.charAt(i++)); 
             s4 = b64.indexOf(data.charAt(i++));
             // these four 6-bit numbers are splited by following three origin 8-bit numbers
             tmpBit = s1 << 18 | s2 << 12 | s3 << 6 | s4;
@@ -69,7 +69,13 @@ module.exports = {
             o1 = tmpBit >> 16 & 0xff;
             o2 = tmpBit >> 8 & 0xff;
             o3 = tmpBit & 0xff;
-            tmpArr[arrIndex++] = String.fromCharCode(o1) + String.fromCharCode(o2) + String.fromCharCode(o3);
+            if (s3 == 64) {
+                tmpArr[arrIndex++] = String.fromCharCode(o1);
+            } else if (s4 == 64) {
+                tmpArr[arrIndex++] = String.fromCharCode(o1, o2);
+            } else {
+                tmpArr[arrIndex++] = String.fromCharCode(o1, o2, o3);
+            }
         } while ( i < len );
         return decodeURIComponent(tmpArr.join(""));
     }
