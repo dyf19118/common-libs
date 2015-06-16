@@ -120,12 +120,14 @@ module.exports = {
 			flag: false,
 			msg: ""
 		};
-		if (pwd && !input) {
-			retInfo.msg = "请再次输入登陆密码";
-		} else if (input !== pwd) {
-			retInfo.msg = "两次输入的密码不一致";
-		} else {
-			retInfo.flag = true;
+		if (pwd) {
+			if (!input) {
+				retInfo.msg = "请再次输入登陆密码";
+			} else if (input !== pwd) {
+				retInfo.msg = "两次输入的密码不一致";
+			} else {
+				retInfo.flag = true;
+			}
 		}
 		return bRet ? retInfo : retInfo.flag;
 	},
@@ -134,7 +136,7 @@ module.exports = {
 			flag: false,
 			msg: ""
 		};
-		if (!code) {
+		if (!input) {
 			retInfo.msg = "短信验证码不得为空";
 		} else {
 			retInfo.flag = true;
