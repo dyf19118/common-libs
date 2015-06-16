@@ -11,11 +11,14 @@ module.exports = {
 	defaults: {},
 	cookie: function(name, value, options) {
 		if (value !== undefined) {
+			if (!name.match(/\W/)) {
+				throw new Error("characters out bounds of [0-9a-zA-Z_] are illegal");
+			}
 			var options = options || this.defaults;
 			if (typeof options.expires === "number") {
 				var t = new Date();
 				t.setTime(+t + 864e+5 * options.expires);
-				return ( document.cookie = [ name, "=", value,
+				return ( document.cookie = [ name, "=", encodeURIComponent(value),
 					options.expires ? "; expires=" + t.toGMTString() : "", 
 					options.path    ? "; path=" + options.path : "",
 					options.domain  ? "; domain=" + options.domain : "",
@@ -31,7 +34,7 @@ module.exports = {
 			var cookie = cookies[ i ],
 				kv = cookie.split("=");
 			if (kv[ 0 ].trim() === name) {
-				return kv[ 1 ];
+				return decodeURIComponent(kv[ 1 ]);
 			}
 		}
 		return "";
