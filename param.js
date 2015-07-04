@@ -33,7 +33,7 @@ module.exports = {
 				pairMap[ name ] = value;
 			} else {
 				if (typeof name === "string") {
-					return pairMap[ name ] ? pairMap[ name ] : "";
+					return pairMap[ name ] || "";
 				} else if (toString.call(name) === "[object Object]") {
 					// add multiple params
 					for ( var key in name ) {
