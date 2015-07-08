@@ -7,13 +7,12 @@
  *    http://opensource.org/licenses/mit-license
  *
  */
-Date.prototype.format = function(format, delim) {
-	var delim = delim || format.match(/[^\w]/)[0],
-		splits = format.split(delim),
+Date.prototype.format = function(format) {
+	var splits = format.split(/[^a-zA-Z]/),
 		i = 0,
 		len = splits.length,
 		formatMap = {
-			/* this map can be extended */
+			 /* this map can be extended */
 			"yyyy": this.getFullYear(),
 			"mm": this.getMonth() + 1,
 			"dd": this.getDate()
@@ -48,3 +47,9 @@ String.prototype.toDate = function(delim) {
 	}
 	return tmp;
 }
+/*Date.prototype.isSameDayWith = function(b) {
+	if (!b) {
+		return false;
+	}
+	return this.getDate() === b.getDate() && this.getMonth() === b.getMonth() && this.getFullYear() === b.getFullYear();
+}*/

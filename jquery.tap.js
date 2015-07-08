@@ -1,6 +1,6 @@
 ; (function($) {
 	$.fn.tap = function(cb) {
-		$(this).each(function() {
+		this.each(function() {
 			var $this = $(this),
 				startX, endX,
 				startY, endY;
@@ -19,5 +19,6 @@
 				}
 			})
 		});
+		return this;
 	};
 })(jQuery);

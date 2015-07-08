@@ -37,8 +37,8 @@ module.exports = {
 		};
 		if (!input) {
 			retInfo.msg = "用户姓名不得为空";
-		} else if (!/^[\u4e00-\u9fa5]{2,}$/.test(input)) {
-			retInfo.msg = "用户姓名应为两个或两个以上的中文汉字";
+		} else if (!/^[\u4e00-\u9fa5]{2,6}$/.test(input)) {
+			retInfo.msg = "用户姓名应为2-6个中文汉字";
 		} else {
 			retInfo.flag = true;
 		}
