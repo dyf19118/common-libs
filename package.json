@@ -1,6 +1,6 @@
 {
   "name": "common-libs",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "modules extracted from my code base",
   "main": "index.js",
   "scripts": {
@@ -15,10 +15,18 @@
     "common",
     "lib"
   ],
-  "author": "Jennis",
+  "author": {
+    "name": "Jennis"
+  },
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/dyf19118/common-libs/issues"
   },
-  "homepage": "https://github.com/dyf19118/common-libs"
+  "homepage": "https://github.com/dyf19118/common-libs",
+  "readme": "# common-libs\nCommon Javascript plugins that extracted from my code base.\n",
+  "readmeFilename": "README.md",
+  "gitHead": "5376276cfa64a2fcba533ce268a6426911ccf2de",
+  "_id": "common-libs@1.1.5",
+  "_shasum": "d8720ebc3a4d934b646fd504f4c2c0a6746a0846",
+  "_from": "common-libs@1.1.5"
 }

@@ -5,7 +5,7 @@ module.exports = function(ch) {
 		len = ch.length;
 	for ( ; i < len ; i++ ) {
 		var code = ch.charCodeAt(i);
-		ret += (code >= 19968 && code <= 40869 ? code_list[code - 19968] : (code >= 65 && code <= 90) || (code >= 97 && code <= 122) ? ch : "z"); 
+		ret += (code >= 19968 && code <= 40869 ? code_list[code - 19968] : (code >= 65 && code <= 90) || (code >= 97 && code <= 122) ? ch.charAt(i) : "z"); 
 	}
 	return ret.toUpperCase();
 }

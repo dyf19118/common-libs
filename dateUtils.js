@@ -15,7 +15,10 @@ Date.prototype.format = function(format) {
 			 /* this map can be extended */
 			"yyyy": this.getFullYear(),
 			"mm": this.getMonth() + 1,
-			"dd": this.getDate()
+			"dd": this.getDate(),
+			"hh": this.getHours(),
+			"MM": this.getMinutes(),
+			"ss": this.getSeconds()
 		};
 	for ( ; i < len ; i++ ) {
 		var key = splits[i],
@@ -47,9 +50,9 @@ String.prototype.toDate = function(delim) {
 	}
 	return tmp;
 }
-/*Date.prototype.isSameDayWith = function(b) {
+Date.prototype.isSameDayWith = function(b) {
 	if (!b) {
 		return false;
 	}
 	return this.getDate() === b.getDate() && this.getMonth() === b.getMonth() && this.getFullYear() === b.getFullYear();
-}*/
+}

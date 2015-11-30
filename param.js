@@ -21,8 +21,9 @@ module.exports = {
 				i = 0,
 				len = pairs.length;
 			for ( ; i < len ; i++ ) {
-				var kv = pairs[i].split("=");
-				pairMap[ kv[0] ] = kv[1];
+				var pair = pairs[i],
+					equal = pair.indexOf("=");
+				pairMap[ pair.slice(0, equal) ] = pair.slice(equal + 1);
 			}
 		}
 		if (name === undefined) {

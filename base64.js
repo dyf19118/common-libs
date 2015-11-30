@@ -12,10 +12,10 @@
 module.exports = {
     b64: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
     encode: function(data) {
-        var data = encodeURIComponent(data);
-        if (!data) {
-            throw new Error("function encode demand at least one parameter => data::String");
+    	if (!data) {
+    		return "";
         }
+    	data = encodeURIComponent(data);
         var b64 = this.b64,
             i = 0,
             len = data.length,
@@ -44,7 +44,7 @@ module.exports = {
     },
     decode: function(data) {
         if (!data) {
-            throw new Error("function decode demand at least one parameter => data::String");
+            return "";
         }
         if (!/^(?:[a-zA-Z\d\+\/=]{4})*$/.test(data)) {
             throw new Error("invalid base64 string");

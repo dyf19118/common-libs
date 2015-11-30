@@ -33,18 +33,20 @@
 			return $(this).hide();
 		},
 		bindTouchHandler : function(selector, handler, cb) {
-			var $this = $(this);
-			if (typeof selector === "object") {
-				for (var s in selector) {
-					var hd = selector[s];
-					$this.find(s).on("touchend", hd);
+			var obj = {};
+			this.each(function() {
+				var $this = $(this),
+					type = obj.toString.call(selector).match(/\[object (\w+)\]/)[1].toLowerCase();
+				if (type === "object") {
+					for (var s in selector) {
+						var hd = selector[s];
+						$this.find(s).on("touchend", {$elem: $this}, hd);
+					}
+				} else if (type === "string") {
+					$this.find(selector).on("touchend", {$elem: $this}, handler);
 				}
-			} else if (typeof selector === "string") {
-				$this.find(selector).on("touchend", handler);
-			} else {
-				return $this;
-			}
-			return $this;
+			});
+			return this;
 		}
 	});
 })(jQuery);
