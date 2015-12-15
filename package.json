@@ -26,7 +26,7 @@
   "readme": "# common-libs\nCommon Javascript plugins that extracted from my code base.\n",
   "readmeFilename": "README.md",
   "gitHead": "5376276cfa64a2fcba533ce268a6426911ccf2de",
-  "_id": "common-libs@1.1.5",
+  "_id": "common-libs@1.1.7",
   "_shasum": "d8720ebc3a4d934b646fd504f4c2c0a6746a0846",
-  "_from": "common-libs@1.1.5"
+  "_from": "common-libs@1.1.7"
 }
