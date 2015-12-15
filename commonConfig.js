@@ -1,9 +1,36 @@
-module.exports = {
+var Config = {
 	NET_ERROR : "网络连接错误，请刷新重试！",
 	GET_DATA_ERROR: "数据请求异常",
 	COOKIE_NOT_AVAILABLE : "Cookie当前不可用！请检查浏览器设置",
 	rhtml : /^<(?:\s|.)*>$/,
 	IS_WX : /MicroMessenger/i.test(navigator.userAgent),
+	ajaxSetting: function(options) {
+		// check if third-party library which provides ajax module exists
+		options = options || {};
+		if (window.$ && $.ajaxSetup) {
+			if (sid = require("common-libs/cookie").get("sid")) {
+				$.ajaxSetup({
+					dataType : "json",
+					data: {
+						pltId: this.pltId,
+						productId: this.productId,
+						version: this.version,
+						sessionId: sid
+					}
+				});
+			} else {
+				// if sidHandler is provided, make it possible to do unique processing
+				// redirect to sign_in
+				// attention: iterative page redirect should be prevented
+				var pageReg = new RegExp("/" + this.app + "/(\\w+)"),
+					pageName = location.pathname.match(pageReg)[1],
+					redirectPageName = options.redirectPageName || "sign_in";
+				if (pageName !== redirectPageName) {
+					location.href = this.sidHandler ? this.sidHandler() : (this.IS_WX ? this.getWxAuthPath(redirectPageName) : redirectPageName);
+				}
+			}
+		}
+	},
 	getFullPath: function(relPath) {
 		return [location.origin, this.app, relPath].join("/");
 	},
@@ -43,3 +70,4 @@ module.exports = {
 	NORMAL : "普通号",
 	INFO_IMG_SRC: "http://cms.jiankang51.cn"
 };
+ module.exports = Config;
