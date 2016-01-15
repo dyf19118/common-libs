@@ -6,29 +6,58 @@ var Config = {
 	IS_WX : /MicroMessenger/i.test(navigator.userAgent),
 	ajaxSetting: function(options) {
 		// check if third-party library which provides ajax module exists
-		options = options || {};
 		if (window.$ && $.ajaxSetup) {
-			if (sid = require("common-libs/cookie").get("sid")) {
-				$.ajaxSetup({
-					dataType : "json",
-					data: {
-						pltId: this.pltId,
-						productId: this.productId,
-						version: this.version,
-						sessionId: sid
+			var pageReg = new RegExp("/" + this.app + "/(\\w+)"),
+				pageName = location.pathname.match(pageReg)[1],
+				queryStr = [location.search ? location.search + "&" : "?", "referrer=" + pageName].join(""),
+				targetHref = options.redirectPageName + queryStr,
+				_this = this;
+			// 去除了根据cookie中sid存在与否来决定是否重定向的逻辑
+			$.ajaxSetup({
+				dataType : "json",
+				data: {
+					pltId: this.pltId,
+					productId: this.productId,
+					version: this.version,
+					sessionId: require("common-libs/cookie").get("sid")
+				},
+				success: function(data, status) {
+					// 通用ajax处理
+					if (data.rspCode !== "1") {
+						switch(data.rspCode) {
+							case "9004":
+								// 登录失效
+							case "9005":	
+								// 登录被挤
+								options.sidHandler ? options.sidHandler() : (location.href = _this.IS_WX ? _this.getWxAuthPath(targetHref) : targetHref);
+								break;
+						}
 					}
-				});
-			} else {
-				// if sidHandler is provided, make it possible to do unique processing
-				// redirect to sign_in
-				// attention: iterative page redirect should be prevented
-				var pageReg = new RegExp("/" + this.app + "/(\\w+)"),
-					pageName = location.pathname.match(pageReg)[1],
-					redirectPageName = options.redirectPageName || "sign_in";
-				if (pageName !== redirectPageName) {
-					location.href = this.sidHandler ? this.sidHandler() : (this.IS_WX ? this.getWxAuthPath(redirectPageName) : redirectPageName);
+				},
+				complete: function(xhr, status) {
+					var rspText = xhr.responseText && xhr.responseText.trim();
+					if (rspText === "" || _this.rhtml.test(rspText)) {
+						switch(status) {
+							case "success":
+								alert(_this.GET_DATA_ERROR);
+								break;
+							case "error":
+								alert(_this.NET_ERROR);
+								break;
+							case "abort":
+								break;
+							default:
+								console.log(status);
+						}
+					} else {
+						try {
+							this._complete && this._complete.call(this, JSON.parse(rspText));
+						} catch(e) {
+							console.log(e.message);
+						}
+					}
 				}
-			}
+			});
 		}
 	},
 	getFullPath: function(relPath) {
@@ -68,6 +97,7 @@ var Config = {
 	Weekdays : ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"],
 	SeeTimeStrings : ["上午", "中午", "下午", "夜晚", "早班", "全天"],
 	NORMAL : "普通号",
-	INFO_IMG_SRC: "http://cms.jiankang51.cn"
+	INFO_IMG_SRC: "http://cms.jiankang51.cn",
+	COUNTDOWN_MINUTES: 60
 };
  module.exports = Config;

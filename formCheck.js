@@ -96,6 +96,12 @@ module.exports = {
 			if (!input) {
 				retInfo.msg = "账号不得为空";
 			} else {
+				// 南通平台的校验规则
+				/*if (/\d/.test(input) && /[a-zA-Z]/.test(input) && /^[0-9a-zA-Z@,]{6,16}$/.test(input)) {
+					retInfo.flag = true;
+				} else {
+					retInfo.msg = "用户名只能由6至16位的字母、数字和'@'、','符号组成";
+				}*/
 				retInfo.flag = true;
 			}
 		}

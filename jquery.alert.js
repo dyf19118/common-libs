@@ -36,14 +36,16 @@
 			var obj = {};
 			this.each(function() {
 				var $this = $(this),
-					type = obj.toString.call(selector).match(/\[object (\w+)\]/)[1].toLowerCase();
+					type = obj.toString.call(selector).match(/\[object (\w+)\]/)[1].toLowerCase(),
+					bHandheld = /mobile|windows phone|ios|android/i.test(navigator.userAgent),
+					clickEvent = bHandheld ? "touchend" : "click";
 				if (type === "object") {
 					for (var s in selector) {
 						var hd = selector[s];
-						$this.find(s).on("touchend", {$elem: $this}, hd);
+						$this.find(s).on(clickEvent, {$elem: $this}, hd);
 					}
 				} else if (type === "string") {
-					$this.find(selector).on("touchend", {$elem: $this}, handler);
+					$this.find(selector).on(clickEvent, {$elem: $this}, handler);
 				}
 			});
 			return this;
