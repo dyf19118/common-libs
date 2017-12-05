@@ -1,3 +1,4 @@
+// add some comments
 function GesturePwd(config) {
 	this.config = {
 		size: 3,
