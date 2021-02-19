@@ -1,5 +1,5 @@
 /*
- * $Id: base64.js,v 1.00.00 2015/06/15 17:10:32 jennis $
+ * $Id: base64.js, v1.0.1
  * 
  * this script runs in web browser client
  *
@@ -38,9 +38,14 @@ module.exports = {
             // 6-bit number's value is between 0 and 63
             tmpArr[arrIndex++] = b64.charAt(s1) + b64.charAt(s2) + b64.charAt(s3) + b64.charAt(s4);
         } while ( i < len );
-        var str = tmpArr.join(""),
-            mod = len % 3;
-        return ( mod ? str.slice(0, mod - 3) : str ) + "===".slice( mod || 3 );
+        var mod = len % 3;
+        
+        if (mod) {
+            var lastIndex = tmpArr.length - 1;
+            tmpArr[lastIndex] = tmpArr[lastIndex].slice(0, mod - 3) + '==='.slice(mod);
+        }
+        
+        return tmpArr.join('');
     },
     decode: function(data) {
         if (!data) {
