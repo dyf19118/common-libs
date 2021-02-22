@@ -1,7 +1,7 @@
-/*
+/**
  * $Id: utf8.js, v1.0.0
  * $Author: dyf19118
- * 
+ *
  * this script runs in all javascript environments that support es6 syntax, or transpiles it into es5 before executing
  *
  *  Licensed under the MIT license.
@@ -9,7 +9,7 @@
  *
  */
 
-function utf8Encoder(str) {
+export function utf8Encoder(str) {
   // encode str with utf-8 encoding, in other words, convert utf-16 code units to utf-8 code units. for the purpose of easy byte string operation.
   // * how utf-16 works:
   // javascript characters are internally encoded as UTF-16 code points, each code point consists one or two 16 bits code units.
@@ -60,8 +60,12 @@ function utf8Encoder(str) {
   return arr;
 }
 
-function utf8Decoder(arr) {
-  // convert utf-8 bytes to utf-16 code units
+export function utf8Decoder(source) {
+  // convert utf-8 bytes/byte strings to utf-16 code unit strings
+  const arr =
+    typeof source === "string"
+      ? source.split("").map((ch) => ch.charCodeAt(0))
+      : source;
   const len = arr.length;
   const charUnitCodes = [];
   let i = 0;
